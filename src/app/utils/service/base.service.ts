@@ -1,0 +1,43 @@
+import { HttpErrorResponse, HttpHeaders} from '@angular/common/http';
+import { throwError } from 'rxjs';
+import { environment } from '../../../environments/environment';
+import { LocalStorageUtils } from '../../utils/localstorage';
+export abstract class BaseService{
+    public localStoreUtils = new LocalStorageUtils();
+    protected urlServiceV1: string = environment.urlApiv1;
+
+    protected obterHeaderJson(){
+        return {
+            headers: new HttpHeaders({
+                'Content-Type' : 'application/json'
+            })
+        };
+    }
+
+    protected ObterAuthHeaderJson() {
+        return {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${this.localStoreUtils.obterTokenUsuario()}`
+            })
+        };
+    }
+
+    protected extractData(response: any){
+        return response?.data || {};
+    }
+
+    protected serviceError(response: Response | any){
+        let customError: string[] = [];
+
+        if(response instanceof HttpErrorResponse){
+            if(response.statusText === 'Unknown Error'){
+                customError.push("Ocorreu um erro desconhecido");
+                response.error.errors = customError;
+            }
+        }
+
+        console.error(response);
+        return throwError(response);
+    }
+}

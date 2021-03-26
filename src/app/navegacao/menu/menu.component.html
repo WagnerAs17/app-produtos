@@ -1,0 +1,24 @@
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <div class="container">
+        <a class="navbar-brand" [routerLink]="['/home']">Meus Produtos</a>
+        <button class="navbar-toggler"  (click)="isCollapse = !isCollapse" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon" ></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-start" [ngbCollapse]="isCollapse" >
+            <ul class="navbar-nav ml-auto ">
+                <li class="nav-item">
+                    <a class="nav-link active" routerLinkActive="active" aria-current="page" [routerLink]="['/home']">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLinkActiveOptions]="{exact: true}"  routerLinkActive="active" [routerLink]="['/fornecedores/lista-todos']">Fornecedores</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLinkActive="active" [routerLink]="['/produtos/listar-todos']">Produtos</a>
+                </li>
+            </ul>
+            <app-menu-login></app-menu-login>
+        </div>
+    </div>
+</nav>

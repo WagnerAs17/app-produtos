@@ -1,0 +1,44 @@
+<div class="container main-container">
+    <h3>Crie a sua conta</h3>
+    <hr>
+    <form [formGroup]="cadastroForm" (submit)="adicionarConta()">
+        <div class="alert alert-danger" *ngIf="erros.length > 0">
+            <h3 id="msgRetorno">Opa! Alguma coisa não deu certo: </h3>
+            <ul>
+                <li *ngFor="let erro of erros">{{ erro }}</li>
+            </ul>
+        </div>
+
+        <div class="mb-3">
+            <label for="email" class="form-label">E-mail</label>
+            <input [ngClass]="{'is-invalid': displayMessage?.email}" formControlName="email" type="email"
+                class="form-control" id="email" placeholder="Digite o seu e-mail">
+            <span class="text-danger" *ngIf="displayMessage?.email">
+                <p [innerHTML]="displayMessage?.email"></p>
+            </span>
+        </div>
+
+        <div class="mb-3">
+            <label for="password" class="form-label">Senha</label>
+            <input [ngClass]="{'is-invalid': displayMessage?.password}" formControlName="password" type="password"
+                class="form-control" id="password" placeholder="Digite o sua Senha">
+            <span class="text-danger" *ngIf="displayMessage?.password">
+                <p [innerHTML]="displayMessage?.password"></p>
+            </span>
+        </div>
+
+        <div class="mb-3">
+            <label for="confirmPassword" class="form-label">Confirmar Senha</label>
+            <input [ngClass]="{'is-invalid': displayMessage?.confirmPassword}" formControlName="confirmPassword"
+                type="password" class="form-control" id="confirmPassword" placeholder="Digite a confirmação da senha">
+            <span class="text-danger" *ngIf="displayMessage?.confirmPassword">
+                <p [innerHTML]="displayMessage?.confirmPassword"></p>
+            </span>
+        </div>
+
+        <button [disabled]="cadastroForm.invalid || submitForm" type="submit" class="btn btn-primary">
+            Registrar
+        </button>
+
+    </form>
+</div>
